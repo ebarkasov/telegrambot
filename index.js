@@ -11,7 +11,7 @@ const chats = {}
 
 
 const startGame = async (chatId) => {
-    await bot.sendMessage(chatId, `Сейчас я загадаю цифру от 0 до 9, а ты должен ее угадать!`);
+    await bot.sendMessage(chatId, `Если не угадаешь цыфру от 0 до 9, то ты лохопед!!!`);
     const randomNumber = Math.floor(Math.random() * 10)
     chats[chatId] = randomNumber;
     await bot.sendMessage(chatId, 'Отгадывай', gameOptions);
@@ -40,7 +40,7 @@ const start = async () => {
             if (text === '/start') {
                 await UserModel.create({chatId})
                 await bot.sendSticker(chatId, 'https://tlgrm.ru/_/stickers/ea5/382/ea53826d-c192-376a-b766-e5abc535f1c9/7.webp')
-                return bot.sendMessage(chatId, `Добро пожаловать в телеграм бот автора ютуб канала ULBI TV`);
+                return bot.sendMessage(chatId, `idinahoy :)))00)`);
             }
             if (text === '/info') {
                 const user = await UserModel.findOne({chatId})
@@ -49,9 +49,9 @@ const start = async () => {
             if (text === '/game') {
                 return startGame(chatId);
             }
-            return bot.sendMessage(chatId, 'Я тебя не понимаю, попробуй еще раз!)');
+            return bot.sendMessage(chatId, 'Че сказал?)');
         } catch (e) {
-            return bot.sendMessage(chatId, 'Произошла какая то ошибочка!)');
+            return bot.sendMessage(chatId, 'WTF???');
         }
 
     })
@@ -65,10 +65,10 @@ const start = async () => {
         const user = await UserModel.findOne({chatId})
         if (data == chats[chatId]) {
             user.right += 1;
-            await bot.sendMessage(chatId, `Поздравляю, ты отгадал цифру ${chats[chatId]}`, againOptions);
+            await bot.sendMessage(chatId, `УГАДАЛ!!!!!! ${chats[chatId]}`, againOptions);
         } else {
             user.wrong += 1;
-            await bot.sendMessage(chatId, `К сожалению ты не угадал, бот загадал цифру ${chats[chatId]}`, againOptions);
+            await bot.sendMessage(chatId, `НЕ УГАДАЛ, бот загадал цифру ${chats[chatId]}`, againOptions);
         }
         await user.save();
     })
